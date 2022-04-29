@@ -32,7 +32,7 @@ mod tests {
 
     #[test]
     fn read_valid_text() {
-        let filepath: String = "T:\\PROEJTOS\\My-Rep-Rust\\cli_reader_app\\poem.pdf"
+        let filepath: String = "poem.pdf"
             .trim()
             .to_string();
 
@@ -45,7 +45,7 @@ mod tests {
     #[test]
     #[should_panic]
     fn read_invalid_text() {
-        let filepath: String = "T:\\PROEJTOS\\My-Rep-Rust\\cli_reader_app\\poem.pdfs"
+        let filepath: String = "poem.pdfs"
             .trim()
             .to_string();
 
@@ -57,7 +57,7 @@ mod tests {
 
     #[test]
     fn search_valid_in_text() {
-        let filepath: String = "T:\\PROEJTOS\\My-Rep-Rust\\cli_reader_app\\poem.pdf"
+        let filepath: String = "poem.pdf"
             .trim()
             .to_string();
 
@@ -78,7 +78,7 @@ mod tests {
     #[test]
     #[should_panic]
     fn search_invalid_in_text() {
-        let filepath: String = "T:\\PROEJTOS\\My-Rep-Rust\\cli_reader_app\\poem.pdfs"
+        let filepath: String = "poem.pdfs"
             .trim()
             .to_string();
         let querry: Vec<String> = ["uol".trim().to_string()].to_vec();
