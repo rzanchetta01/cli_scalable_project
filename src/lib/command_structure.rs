@@ -6,6 +6,10 @@ pub enum DebugCommannds {
     _Exit,
 }
 
+pub enum GarbageCleanerCommands {
+    _Garbage
+}
+
 pub enum InicialComands {
     _Yal,
     _Version,
@@ -22,6 +26,14 @@ pub enum FileSistemCommands {
 
 pub enum CalculatorCommands {
     _Math,
+}
+
+impl fmt::Display for GarbageCleanerCommands {
+    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+        match self {
+            GarbageCleanerCommands::_Garbage => write!(f , "-garbage"),
+        }
+    }
 }
 
 impl fmt::Display for InicialComands {

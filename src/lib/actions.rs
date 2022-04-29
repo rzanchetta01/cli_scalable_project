@@ -1,4 +1,7 @@
-use crate::{file_explorer, util, command_structure, calculator::calculator_imp};
+use crate::{
+    lib::calculator::calculator_imp, lib::command_structure, lib::file_explorer,
+    lib::garbage_cleaner::GarbageCleaner, lib::util,
+};
 
 pub fn read_actions(args: Vec<String>, is_debug: bool) {
     if args.contains(&command_structure::FileSistemCommands::_Path.to_string()) {
@@ -56,4 +59,37 @@ pub fn read_actions(args: Vec<String>, is_debug: bool) {
 
 pub fn calculator_actions() {
     calculator_imp();
+}
+
+pub fn garbage_cleaner(args: Vec<String>) {
+    if args.len() == 3 {
+
+        let mut user = String::new();
+        for i in 0..args.len() {
+            if args[i].eq(&command_structure::GarbageCleanerCommands::_Garbage.to_string()) {
+                user = args[i+1].clone();
+            }
+        }
+        match GarbageCleaner::run(user) {
+            Ok(ok) => println!("{}", ok),
+            Err(err) => println!("{}", err),
+        }
+    } else {
+        println!("INCORRECT, TRY: yal -garbage <username>");
+    }
+}
+
+pub fn yal_help() {
+    println!("\n\nYAL BY RODRIGO ZANCHETTA");
+    yal_version();
+    print!("\nCOMMANDS: \n");
+    println!("yal -read -path <enter_file_path_here> -dntsearch");
+    println!("yal -read -path <enter_file_path_here> -search <enter_key_words_here>");
+    println!("yal -dntread -path <enter_file_path_here> -search <enter_key_words_here>");
+    println!("yal -math");
+    println!("yal -garbage <windows_username>");
+}
+
+pub fn yal_version() {
+    println!("yal version 1.1.0");
 }
