@@ -6,7 +6,7 @@ use std::{process};
 use crate::util::input_to_vector;
 
 fn main() {
-    let args: Vec<String> = util::input_to_vector();
+    let args: Vec<String> = std::env::args().collect();
 
     if args.contains(&command_structure::DebugCommannds::_DebugMode.to_string()) {
         if args.contains(&command_structure::DebugCommannds::_Loop.to_string()) {
