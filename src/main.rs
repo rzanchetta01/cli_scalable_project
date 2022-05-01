@@ -1,7 +1,7 @@
 mod lib;
 
 use lib::{actions, command_structure, config::Config, util};
-use std::{process};
+use std::process;
 
 use crate::util::input_to_vector;
 
@@ -9,11 +9,8 @@ fn main() {
     let args: Vec<String> = std::env::args().collect();
 
     if args.contains(&command_structure::DebugCommannds::_DebugMode.to_string()) {
-        if args.contains(&command_structure::DebugCommannds::_Loop.to_string()) {
-            dev_mode(args.clone());
-        } else {
-            println!("for debug please use -debugMode and -loop");
-        }
+        println!("YAL RUNNING IN DEBUG MODE");
+        dev_mode(args.clone());
     } else {
         prod_mode(args);
     }
@@ -56,14 +53,14 @@ fn action(args: Vec<String>, is_debug: bool) {
     if args.contains(&command_structure::FileSistemCommands::_Read.to_string())
         || args.contains(&command_structure::FileSistemCommands::_Dntread.to_string())
     {
-        actions::read_actions(args.clone(), is_debug.clone());
+        actions::read_actions(args.clone(), is_debug);
     } else if args.contains(&command_structure::CalculatorCommands::_Math.to_string()) {
         actions::calculator_actions();
     } else if args.contains(&command_structure::GarbageCleanerCommands::_Garbage.to_string()) {
         actions::garbage_cleaner(args.clone());
-    } else if args.contains(&command_structure::InicialComands::_Help.to_string()){
+    } else if args.contains(&command_structure::InicialComands::_Help.to_string()) {
         actions::yal_help();
-    } else if args.contains(&command_structure::InicialComands::_Version.to_string()){
+    } else if args.contains(&command_structure::InicialComands::_Version.to_string()) {
         actions::yal_version();
     } else {
         println!("SELECT A VALID OPTION, TRY yal -help FOR ALL COMANDS");

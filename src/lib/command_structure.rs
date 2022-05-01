@@ -2,7 +2,6 @@ use std::fmt;
 
 pub enum DebugCommannds {
     _DebugMode,
-    _Loop,
     _Exit,
 }
 
@@ -17,11 +16,9 @@ pub enum InicialComands {
 }
 
 pub enum FileSistemCommands {
-    _Path,
     _Read,
     _Search,
     _Dntread,
-    _Dntsearch,
 }
 
 pub enum CalculatorCommands {
@@ -52,8 +49,6 @@ impl fmt::Display for FileSistemCommands {
             FileSistemCommands::_Read => write!(f, "-read"),
             FileSistemCommands::_Search => write!(f, "-search"),
             FileSistemCommands::_Dntread => write!(f, "-dntread"),
-            FileSistemCommands::_Dntsearch => write!(f, "-dntsearch"),
-            FileSistemCommands::_Path => write!(f, "-path"),
         }
     }
 }
@@ -71,7 +66,6 @@ impl fmt::Display for DebugCommannds {
         match self {
             DebugCommannds::_DebugMode => write!(f, "-debugMode"),
             DebugCommannds::_Exit => write!(f, "-exit"),
-            DebugCommannds::_Loop => write!(f, "-loop"),
         }
     }
 }
