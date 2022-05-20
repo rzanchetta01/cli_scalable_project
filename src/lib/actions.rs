@@ -1,7 +1,8 @@
 use crate::{
-    lib::calculator::calculator_imp, lib::command_structure, lib::file_explorer,
-    lib::garbage_cleaner::GarbageCleaner, lib::util,
+    lib::calculator::calculator_imp, lib::command_structure,
+    lib::garbage_cleaner::GarbageCleaner, lib::util, lib::no_sql_db
 };
+
 
 pub fn read_actions(args: Vec<String>, is_debug: bool) {
     let mut text: String = String::new();
@@ -27,18 +28,18 @@ pub fn read_actions(args: Vec<String>, is_debug: bool) {
         }
     }
 
-    match file_explorer::read_text(args_option) {
+    match no_sql_db::read_text(args_option) {
         Ok(t) => text = t,
         Err(err) => println!(
             "INCORRECT PATH LOCATION OR NOT FOUND, TRY IT : yal -read <enter_path_here>\n\n{err}"
         ),
     }
 
-    if args.contains(&command_structure::FileSistemCommands::_Read.to_string()) {
+    if args.contains(&command_structure::NoSqlDb::_Read.to_string()) {
         util::printer_string(text.clone());
     }
 
-    if args.contains(&command_structure::FileSistemCommands::_Search.to_string()) {
+    if args.contains(&command_structure::NoSqlDb::_Search.to_string()) {
         let mut querry: Vec<String> = args.clone();
 
         if is_debug {
@@ -47,7 +48,7 @@ pub fn read_actions(args: Vec<String>, is_debug: bool) {
             querry.drain(0..4);
         }
 
-        match file_explorer::search_in_text(&text, &querry) {
+        match no_sql_db::search_in_text(&text, &querry) {
             Ok(s) => {
                 let mut vec_result: Vec<String> = Vec::new();
                 for str in s {
@@ -86,13 +87,54 @@ pub fn yal_help() {
     println!("\n\nYAL BY RODRIGO ZANCHETTA");
     yal_version();
     print!("\nCOMMANDS: \n");
-    println!("yal -read {{enter_file_path_here}}");
-    println!("yal -read <enter_file_path_here> -search <enter_key_words_here>");
-    println!("yal -dntread <enter_file_path_here> -search <enter_key_words_here>");
-    println!("yal -math");
-    println!("yal -garbage <windows_username>");
+    println!("yal -read {{enter_file_path_here}}    <- USE FOR READ JSON AND TXT FILES");
+    println!("yal -read <enter_file_path_here> -search <enter_key_words_here>   <- FOR READ THE FILE THEN SEARCH KEYWORDS IN FILES");
+    println!("yal -dntread <enter_file_path_here> -search <enter_key_words_here>    <- FOR ONLY SEARCH THE KEYWORDS IN FILES");
+    println!("yal -math     <- BASIC MATH CALCULATOR");
+    println!("yal -garbage <windows_username>   <- CLEAR WINDOWS TEMPORARY FILES");
+    println!("yal -db -create <enter_collection_path_here>  <- [BETA] COLLECTION CREATION IMPLEMENTATION FOR FUTURE NOSQL DATABASE");
+    println!("yal -db -delete <enter_collection_path_here>  <- [BETA] COLLECTION DELETION IMPLEMENTATION FOR FUTURE NOSQL DATABASE");
 }
 
 pub fn yal_version() {
-    println!("yal version 1.1.0");
+    println!("yal version 1.2.2");
+}
+
+pub fn create_db(args: Vec<String>) {
+    
+    const BASE_STRUCTURE_MIN_LENGHT: usize = 4;
+
+    if args.len() >= BASE_STRUCTURE_MIN_LENGHT {
+        
+        let path = args[3].to_owned();
+
+        match no_sql_db::create_db(&path) {
+            Ok(msg) => println!("{}", msg),
+            Err(err) => println!("ERROR CREATING COLLECTION: {}   TRY YAL -HELP FOR MORE INFORMATION", err),
+        }
+
+    } else {
+        println!(
+            "ERROR CREATING COLLECTION TRY YAL -HELP FOR MORE INFORMATION"
+        );
+    }
+}
+
+pub fn delete_db(args: Vec<String>) {
+
+    const BASE_STRUCTURE_MIN_LENGHT: usize = 4;
+
+    if args.len() >= BASE_STRUCTURE_MIN_LENGHT {
+        let path = args[3].to_owned();
+
+        match no_sql_db::delete_db(&path) {
+            Ok(msg) => println!("{}", msg),
+            Err(err) => println!("ERROR DELETING COLLECTION: {}   TRY YAL -HELP FOR MORE INFORMATION", err),
+        }
+
+    } else {
+        println!(
+            "ERROR DELETING COLLECTION TRY YAL -HELP FOR MORE INFORMATION"
+        );
+    }
 }

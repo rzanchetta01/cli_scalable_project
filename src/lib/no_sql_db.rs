@@ -25,6 +25,19 @@ pub fn search_in_text(content: &str, querry: &Vec<String>) -> Result<Vec<String>
     return Ok(result);
 }
 
+pub fn create_db(path: &str) -> Result<String, Box<dyn std::error::Error>> {
+    std::fs::File::create(path)?;
+
+    Ok("Collection created successfully".into())
+}
+
+pub fn delete_db(path: &str) -> Result<String, Box<dyn std::error::Error>> {
+    std::fs::remove_file(path)?;
+
+    Ok("Collection deleted successfilly".into())
+}
+
+
 #[cfg(test)]
 mod tests {
 
@@ -94,4 +107,61 @@ mod tests {
             Err(_) => panic!(""),
         }
     }
+
+    #[test]
+    fn create_valid_collection() {
+        let path = "/home/rodrigozanchetta/PROJECTS/cli_scalable_project/foods.json".trim();
+
+        match create_db(path) {
+            Ok(_) => println!(""),
+            Err(err) => panic!("{}", err.to_string()),
+        }
+    }
+
+    #[test]
+    #[should_panic]
+    fn create_invalid_collection() {
+        let path = "/home/rodrigozanchetta/PROJECTS/cli_scalable_project_missing_folder/foodsss.json".trim();
+
+        match create_db(path) {
+            Ok(_) => println!(""),
+            Err(err) => panic!("{}", err.to_string()),
+        }
+    }
+
+    #[test]
+    fn delete_valid_collection() {
+
+        let path = "/home/rodrigozanchetta/PROJECTS/cli_scalable_project/foods.json".trim();
+
+        match create_db(path) {
+            Ok(_) => println!(""),
+            Err(err) => panic!("{}", err.to_string()),
+        }
+
+        match delete_db(path) {
+            Ok(_) => println!(""),
+            Err(err) => panic!("{}", err.to_string()),
+        }
+    }
+
+    #[test]
+    #[should_panic]
+    fn delete_invalid_collection() {
+
+        let mut path = "/home/rodrigozanchetta/PROJECTS/cli_scalable_project/foods.json".trim();
+
+        match create_db(path) {
+            Ok(_) => println!(""),
+            Err(err) => panic!("{}", err.to_string()),
+        }
+
+        path = "/home/rodrigozanchetta/PROJECTS/cli_scalable_project/foods.json_ERROR".trim();
+
+        match delete_db(path) {
+            Ok(_) => println!(""),
+            Err(err) => panic!("{}", err.to_string()),
+        }
+    }
+
 }

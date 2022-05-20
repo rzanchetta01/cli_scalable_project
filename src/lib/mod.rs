@@ -1,6 +1,6 @@
 pub mod command_structure;
 pub mod config;
-pub mod file_explorer;
+pub mod no_sql_db;
 pub mod util;
 pub mod actions;
 pub mod calculator;

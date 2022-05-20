@@ -1,5 +1,14 @@
 use std::fmt;
 
+pub enum NoSqlDb {
+    _Read,
+    _Search,
+    _Dntread,
+    _Create,
+    _Delete,
+    _Db
+}
+
 pub enum DebugCommannds {
     _DebugMode,
     _Exit,
@@ -13,12 +22,6 @@ pub enum InicialComands {
     _Yal,
     _Version,
     _Help,
-}
-
-pub enum FileSistemCommands {
-    _Read,
-    _Search,
-    _Dntread,
 }
 
 pub enum CalculatorCommands {
@@ -43,12 +46,15 @@ impl fmt::Display for InicialComands {
     }
 }
 
-impl fmt::Display for FileSistemCommands {
+impl fmt::Display for NoSqlDb {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
         match self {
-            FileSistemCommands::_Read => write!(f, "-read"),
-            FileSistemCommands::_Search => write!(f, "-search"),
-            FileSistemCommands::_Dntread => write!(f, "-dntread"),
+            NoSqlDb::_Read => write!(f, "-read"),
+            NoSqlDb::_Search => write!(f, "-search"),
+            NoSqlDb::_Dntread => write!(f, "-dntread"),
+            NoSqlDb::_Create => write!(f, "-create"),
+            NoSqlDb::_Delete => write!(f, "-delete"),
+            NoSqlDb::_Db => write!(f, "-db"),
         }
     }
 }

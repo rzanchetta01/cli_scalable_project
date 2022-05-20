@@ -50,11 +50,15 @@ fn dev_mode(mut args: Vec<String>) {
 }
 
 fn action(args: Vec<String>, is_debug: bool) {
-    if args.contains(&command_structure::FileSistemCommands::_Read.to_string())
-        || args.contains(&command_structure::FileSistemCommands::_Dntread.to_string())
+    if args.contains(&command_structure::NoSqlDb::_Read.to_string())
+        || args.contains(&command_structure::NoSqlDb::_Dntread.to_string())
     {
         actions::read_actions(args.clone(), is_debug);
-    } else if args.contains(&command_structure::CalculatorCommands::_Math.to_string()) {
+    }else if args.contains(&command_structure::NoSqlDb::_Create.to_string()) {
+        actions::create_db(args);
+    }else if args.contains(&command_structure::NoSqlDb::_Delete.to_string()) {
+        actions::delete_db(args);
+    }else if args.contains(&command_structure::CalculatorCommands::_Math.to_string()) {
         actions::calculator_actions();
     } else if args.contains(&command_structure::GarbageCleanerCommands::_Garbage.to_string()) {
         actions::garbage_cleaner(args.clone());
