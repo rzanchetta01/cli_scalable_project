@@ -110,7 +110,7 @@ mod tests {
 
     #[test]
     fn create_valid_collection() {
-        let path = "/home/rodrigozanchetta/PROJECTS/cli_scalable_project/foods.json".trim();
+        let path = "foods.json".trim();
 
         match create_db(path) {
             Ok(_) => println!(""),
@@ -121,7 +121,7 @@ mod tests {
     #[test]
     #[should_panic]
     fn create_invalid_collection() {
-        let path = "/home/rodrigozanchetta/PROJECTS/cli_scalable_project_missing_folder/foodsss.json".trim();
+        let path = "cli_scalable_project_missing_folder/foodsss.json".trim();
 
         match create_db(path) {
             Ok(_) => println!(""),
@@ -132,7 +132,7 @@ mod tests {
     #[test]
     fn delete_valid_collection() {
 
-        let path = "/home/rodrigozanchetta/PROJECTS/cli_scalable_project/foods.json".trim();
+        let path = "foods.json".trim();
 
         match create_db(path) {
             Ok(_) => println!(""),
@@ -149,14 +149,14 @@ mod tests {
     #[should_panic]
     fn delete_invalid_collection() {
 
-        let mut path = "/home/rodrigozanchetta/PROJECTS/cli_scalable_project/foods.json".trim();
+        let mut path = "foods.json".trim();
 
         match create_db(path) {
             Ok(_) => println!(""),
             Err(err) => panic!("{}", err.to_string()),
         }
 
-        path = "/home/rodrigozanchetta/PROJECTS/cli_scalable_project/foods.json_ERROR".trim();
+        path = "cli_scalable_project/foods.json_ERROR".trim();
 
         match delete_db(path) {
             Ok(_) => println!(""),
